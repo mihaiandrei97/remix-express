@@ -9,7 +9,8 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production node ./build/server/index.js",
     "add-build": "git add build",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "@remix-run/express": "^2.11.2",
