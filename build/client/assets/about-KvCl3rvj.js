@@ -1,0 +1,1 @@
+import{w as e,n as s}from"./components-BJ6gQCoG.js";function a(){const t=e();return s.jsxs("div",{children:[s.jsx("h1",{children:"About route"}),s.jsx("h1",{children:t.message})]})}export{a as default};

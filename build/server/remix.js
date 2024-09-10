@@ -1,7 +1,7 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { PassThrough } from "node:stream";
-import { createReadableStreamFromReadable } from "@remix-run/node";
-import { RemixServer, Outlet, Meta, Links, ScrollRestoration, Scripts } from "@remix-run/react";
+import { createReadableStreamFromReadable, json } from "@remix-run/node";
+import { RemixServer, Outlet, Meta, Links, ScrollRestoration, Scripts, Link, useLoaderData } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 const ABORT_DELAY = 5e3;
@@ -164,7 +164,8 @@ function Index() {
           rel: "noreferrer",
           children: "Remix Docs"
         }
-      ) })
+      ) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/about", className: "text-blue-700 underline visited:text-purple-900", children: "About Route" }) })
     ] })
   ] });
 }
@@ -173,7 +174,22 @@ const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: Index,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-OhPYqXw_.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-9kbKGBb9.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-sTZfpYDz.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js", "/assets/components-9kbKGBb9.js"], "css": ["/assets/root-BFUH26ow.css"] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-B6hwyHK-.js", "imports": ["/assets/jsx-runtime-56DGgGmo.js"], "css": [] } }, "url": "/assets/manifest-3d4c0687.js", "version": "3d4c0687" };
+async function loader() {
+  return json({ message: "Hello from the server!" });
+}
+function About() {
+  const data = useLoaderData();
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("h1", { children: "About route" }),
+    /* @__PURE__ */ jsx("h1", { children: data.message })
+  ] });
+}
+const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: About,
+  loader
+}, Symbol.toStringTag, { value: "Module" }));
+const serverManifest = { "entry": { "module": "/assets/entry.client-CBdXtiFv.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-D7YhUDGq.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": ["/assets/root-BFUH26ow.css"] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-Co_9s5P6.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes/about": { "id": "routes/about", "parentId": "root", "path": "about", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/about-KvCl3rvj.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] } }, "url": "/assets/manifest-6f938af4.js", "version": "6f938af4" };
 const mode = "production";
 const assetsBuildDirectory = "build/client";
 const basename = "/";
@@ -197,6 +213,14 @@ const routes = {
     index: true,
     caseSensitive: void 0,
     module: route1
+  },
+  "routes/about": {
+    id: "routes/about",
+    parentId: "root",
+    path: "about",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route2
   }
 };
 export {
