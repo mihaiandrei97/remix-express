@@ -133,7 +133,7 @@ const meta = () => {
 };
 function Index() {
   return /* @__PURE__ */ jsxs("div", { className: "font-sans p-4", children: [
-    /* @__PURE__ */ jsx("h1", { className: "text-3xl", children: "Welcome to Remix" }),
+    /* @__PURE__ */ jsx("h1", { className: "text-3xl", children: "Welcome to Remix from vercel" }),
     /* @__PURE__ */ jsxs("ul", { className: "list-disc mt-4 pl-6 space-y-2", children: [
       /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
         "a",
@@ -189,7 +189,7 @@ const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: About,
   loader
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-CBdXtiFv.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-D7YhUDGq.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": ["/assets/root-BFUH26ow.css"] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-Co_9s5P6.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes/about": { "id": "routes/about", "parentId": "root", "path": "about", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/about-KvCl3rvj.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] } }, "url": "/assets/manifest-6f938af4.js", "version": "6f938af4" };
+const serverManifest = { "entry": { "module": "/assets/entry.client-CBdXtiFv.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-D7YhUDGq.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": ["/assets/root-BFUH26ow.css"] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-CAAf4WEt.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] }, "routes/about": { "id": "routes/about", "parentId": "root", "path": "about", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/about-KvCl3rvj.js", "imports": ["/assets/components-BJ6gQCoG.js"], "css": [] } }, "url": "/assets/manifest-c8f1c833.js", "version": "c8f1c833" };
 const mode = "production";
 const assetsBuildDirectory = "build/client";
 const basename = "/";
