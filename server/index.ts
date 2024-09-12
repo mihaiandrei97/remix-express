@@ -1,8 +1,10 @@
 import { createRequestHandler } from "@remix-run/express";
-import { type ServerBuild } from "@remix-run/node";
+import { AppLoadContext, type ServerBuild } from "@remix-run/node";
 import compression from "compression";
 import express from "express";
+import { verifyRequestOrigin } from "lucia";
 import morgan from "morgan";
+import { lucia } from "~/lib/auth.server.js";
 
 const viteDevServer =
   process.env.NODE_ENV === "production"
@@ -52,6 +54,41 @@ async function getBuild() {
     return { error: error, build: null as unknown as ServerBuild };
   }
 }
+
+// handle auth
+
+app.use((req, res, next) => {
+	if (req.method === "GET") {
+		return next();
+	}
+	const originHeader = req.headers.origin ?? null;
+	const hostHeader = req.headers.host ?? null;
+	if (!originHeader || !hostHeader || !verifyRequestOrigin(originHeader, [hostHeader])) {
+		return res.status(403).end();
+	}
+	return next();
+});
+
+app.use(async (req, res, next) => {
+	const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
+	if (!sessionId) {
+		res.locals.user = null;
+		res.locals.session = null;
+		return next();
+	}
+
+	const { session, user } = await lucia.validateSession(sessionId);
+	if (session && session.fresh) {
+		res.appendHeader("Set-Cookie", lucia.createSessionCookie(session.id).serialize());
+	}
+	if (!session) {
+		res.appendHeader("Set-Cookie", lucia.createBlankSessionCookie().serialize());
+	}
+	res.locals.session = session;
+	res.locals.user = user;
+	return next();
+});
+
 // handle SSR requests
 app.all(
   "*",
@@ -63,10 +100,16 @@ app.all(
       }
       return build;
     },
+    getLoadContext(_req, res){
+      return {
+        user: res.locals.user,
+        session: res.locals.session,
+      } satisfies AppLoadContext;
+    }
   })
 );
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5173;
 app.listen(port, () =>
   console.log(`Express server listening at http://localhost:${port}`)
 );

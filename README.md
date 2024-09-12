@@ -38,3 +38,26 @@ Make sure to deploy the output of `npm run build`
 ## Styling
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+
+### Google Provider
+
+By default, this starter only comes with the google provider which you'll need to setup:
+
+1. https://console.cloud.google.com/apis/credentials
+2. create a new project
+3. setup oauth consent screen
+4. create credentials - oauth client id
+5. for authorized javascript origins
+
+- http://localhost:3000
+- https://your-domain.com
+
+6. Authorized redirect URIs
+
+- http://localhost:3000/api/auth/callback/google
+- https://your-domain.com/api/auth/callback/google
+
+7. Set your google id and secret inside of .env
+
+- **GOOGLE_CLIENT_ID**
+- **GOOGLE_CLIENT_SECRET**

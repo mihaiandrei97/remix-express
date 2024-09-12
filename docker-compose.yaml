@@ -1,0 +1,16 @@
+services:
+  remix-express:
+    image: postgres
+    restart: always
+    container_name: remix-express
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: randompassword
+      POSTGRES_USER: johndoe
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres:/data/postgres
+
+volumes:
+  postgres:
