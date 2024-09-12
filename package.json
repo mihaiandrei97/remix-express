@@ -8,7 +8,8 @@
     "dev": "tsx server/index.ts",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production node ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "stripe:listen": "stripe listen --forward-to http://localhost:5173/api/webhooks/stripe"
   },
   "dependencies": {
     "@lucia-auth/adapter-prisma": "^4.0.1",
@@ -24,7 +25,8 @@
     "lucia": "^3.2.0",
     "morgan": "^1.10.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "stripe": "^16.10.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.0",

@@ -48,6 +48,14 @@ export default function Index() {
             Login
           </Link>
         </li>
+        <li>
+          <Link
+            className="text-blue-700 underline visited:text-purple-900"
+            to="/pricing"
+          >
+            Pricing
+          </Link>
+        </li>
         {data.user && <li>
           <Form method="post">
             <button className="pointer">

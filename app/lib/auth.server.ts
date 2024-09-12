@@ -33,11 +33,6 @@ export const googleAuth = new Google(
   `${process.env.HOST_NAME}/api/login/google/callback`
 );
 
-console.log('process.env.GITHUB_CLIENT_ID', process.env.GITHUB_CLIENT_ID)
-console.log('process.env.GITHUB_CLIENT_SECRET', process.env.GITHUB_CLIENT_SECRET)
-console.log('process.env.GOOGLE_CLIENT_ID', process.env.GOOGLE_CLIENT_ID)
-console.log('process.env.GOOGLE_CLIENT_SECRET', process.env.GOOGLE_CLIENT_SECRET)
-console.log('process.env.HOST_NAME', `${process.env.HOST_NAME}/api/login/google/callback`)
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
@@ -54,6 +49,7 @@ declare module "@remix-run/node" {
       email: User['email'],
       role: User['role'],
       username: User['username'],
+      id: string;
     } | null;
     readonly session: Session | null;
   }

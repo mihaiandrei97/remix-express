@@ -61,6 +61,9 @@ app.use((req, res, next) => {
 	if (req.method === "GET") {
 		return next();
 	}
+  if (req.path === "/api/webhooks/stripe") {
+    return next();
+  }
 	const originHeader = req.headers.origin ?? null;
 	const hostHeader = req.headers.host ?? null;
 	if (!originHeader || !hostHeader || !verifyRequestOrigin(originHeader, [hostHeader])) {
