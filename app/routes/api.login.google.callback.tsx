@@ -1,9 +1,8 @@
 import { json, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { OAuth2RequestError } from "arctic";
-import { generateId } from "lucia";
 import { googleAuth, lucia } from "~/lib/auth.server";
 import { oauthCodeVerifier, oauthState } from "~/lib/cookies";
-import { db } from "~/lib/db.server";
+import { createProviderAccount, findUserByProvider } from "~/lib/user.server";
 
 interface GoogleUser {
   sub: string;
@@ -47,16 +46,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
     const googleUser: GoogleUser = await response.json();
 
-    const existingUser = await db.account.findUnique({
-      where: {
-        providerName_providerId: {
-          providerName: "google",
-          providerId: googleUser.sub,
-        },
-      },
-      select: {
-        userId: true,
-      },
+    const existingUser = await findUserByProvider({
+      providerId: googleUser.sub,
+      providerName: "google",
     });
 
     if (existingUser) {
@@ -68,19 +60,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
       });
     }
 
-    const userId = generateId(15);
-    await db.user.create({
-      data: {
-        id: userId,
-        email: googleUser.email,
-        username: googleUser.name,
-        accounts: {
-          create: {
-            providerName: "google",
-            providerId: googleUser.sub,
-          },
-        },
-      },
+    const { id: userId } = await createProviderAccount({
+      email: googleUser.email,
+      username: googleUser.name,
+      providerId: googleUser.sub,
+      providerName: "google",
     });
 
     const session = await lucia.createSession(userId, {});

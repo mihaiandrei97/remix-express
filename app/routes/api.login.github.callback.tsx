@@ -1,9 +1,8 @@
 import { json, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { OAuth2RequestError } from "arctic";
-import { generateId } from "lucia";
 import { github, lucia } from "~/lib/auth.server";
 import { oauthState } from "~/lib/cookies";
-import { db } from "~/lib/db.server";
+import { createProviderAccount, findUserByProvider } from "~/lib/user.server";
 
 interface GitHubUser {
   id: number;
@@ -40,16 +39,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
     });
     const githubUser: GitHubUser = await githubUserResponse.json();
 
-    const existingUser = await db.account.findUnique({
-      where: {
-        providerName_providerId: {
-          providerName: "github",
-          providerId: githubUser.id.toString(),
-        },
-      },
-      select: {
-        userId: true,
-      },
+    const existingUser = await findUserByProvider({
+      providerId: githubUser.id.toString(),
+      providerName: "github",
     });
 
     if (existingUser) {
@@ -79,19 +71,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
       return json("Email missing on github.", { status: 400 });
     }
 
-    const userId = generateId(15);
-    await db.user.create({
-      data: {
-        id: userId,
-        email: primaryEmail,
-        username: githubUser.login,
-        accounts: {
-          create: {
-            providerName: "github",
-            providerId: githubUser.id.toString(),
-          },
-        },
-      },
+    const { id: userId } = await createProviderAccount({
+      email: primaryEmail,
+      username: githubUser.login,
+      providerId: githubUser.id.toString(),
+      providerName: "github",
     });
 
     const session = await lucia.createSession(userId, {});
