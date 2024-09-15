@@ -49,6 +49,7 @@ declare module "@remix-run/node" {
       email: User['email'],
       role: User['role'],
       username: User['username'],
+      id: User['id']
     } | null;
     readonly session: Session | null;
   }
