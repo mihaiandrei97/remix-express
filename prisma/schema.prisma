@@ -14,15 +14,15 @@ datasource db {
 }
 
 model User {
-  id        String    @id
-  email     String    @unique
-  role      String    @default("USER") // "USER" | "ADMIN"
-  username  String
-  sessions  Session[]
-  accounts  Account[]
-  
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id       String    @id
+  email    String    @unique
+  role     String    @default("USER") // "USER" | "ADMIN"
+  username String
+  sessions Session[]
+  accounts Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
@@ -51,4 +51,14 @@ model Account {
   updatedAt DateTime @updatedAt
 
   @@unique([providerName, providerId])
+}
+
+model File {
+  id   String @id @default(cuid())
+  blob Bytes
+  contentType String
+  name        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
