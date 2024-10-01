@@ -22,7 +22,7 @@ export default function Index() {
 
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
+      <h1 className="text-3xl">Welcome to Remix + express</h1>
       <pre>
         <code className="text-sm bg-gray-100 p-2 rounded-md">
           {JSON.stringify(data, null, 2)}
