@@ -1,12 +1,13 @@
-import { jsx, jsxs } from "react/jsx-runtime";
-import { PassThrough } from "node:stream";
-import { createReadableStreamFromReadable, json } from "@remix-run/node";
-import { RemixServer, Outlet, Meta, Links, ScrollRestoration, Scripts, useLoaderData } from "@remix-run/react";
-import { isbot } from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-import { createExpressApp } from "remix-create-express-app";
-import compression from "compression";
-import morgan from "morgan";
+import { jsx, jsxs } from 'react/jsx-runtime';
+import { PassThrough } from 'node:stream';
+import { createReadableStreamFromReadable, json } from '@remix-run/node';
+import { RemixServer, Outlet, Meta, Links, ScrollRestoration, Scripts, useLoaderData } from '@remix-run/react';
+import { isbot } from 'isbot';
+import { renderToPipeableStream } from 'react-dom/server';
+import { createExpressApp } from 'remix-create-express-app';
+import compression from 'compression';
+import morgan from 'morgan';
+
 const ABORT_DELAY = 5e3;
 function handleRequest(request, responseStatusCode, responseHeaders, remixContext, loadContext) {
   return isbot(request.headers.get("user-agent") || "") ? handleBotRequest(
@@ -115,11 +116,13 @@ const app = createExpressApp({
     };
   }
 });
-const entryServer = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+
+const entryServer = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   app,
   default: handleRequest
-}, Symbol.toStringTag, { value: "Module" }));
+}, Symbol.toStringTag, { value: 'Module' }));
+
 function Layout({ children }) {
   return /* @__PURE__ */ jsxs("html", { lang: "en", children: [
     /* @__PURE__ */ jsxs("head", { children: [
@@ -138,11 +141,13 @@ function Layout({ children }) {
 function App() {
   return /* @__PURE__ */ jsx(Outlet, {});
 }
-const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+
+const route0 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   Layout,
   default: App
-}, Symbol.toStringTag, { value: "Module" }));
+}, Symbol.toStringTag, { value: 'Module' }));
+
 const meta = () => {
   return [
     { title: "New Remix App" },
@@ -193,46 +198,44 @@ function Index() {
     ] })
   ] });
 }
-const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+
+const route1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: Index,
   loader,
   meta
-}, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-BAyR6y3E.js", "imports": ["/assets/components-B3Ttrgzw.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-BLYVat2W.js", "imports": ["/assets/components-B3Ttrgzw.js"], "css": ["/assets/root-CQAT2Ijf.css"] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-7Q_RR4_c.js", "imports": ["/assets/components-B3Ttrgzw.js"], "css": [] } }, "url": "/assets/manifest-6a666341.js", "version": "6a666341" };
-const mode = "production";
-const assetsBuildDirectory = "build/client";
-const basename = "/";
-const future = { "v3_fetcherPersist": true, "v3_relativeSplatPath": true, "v3_throwAbortReason": true, "unstable_singleFetch": false, "unstable_lazyRouteDiscovery": false };
-const isSpaMode = false;
-const publicPath = "/";
-const entry = { module: entryServer };
-const routes = {
-  "root": {
-    id: "root",
-    parentId: void 0,
-    path: "",
-    index: void 0,
-    caseSensitive: void 0,
-    module: route0
-  },
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const serverManifest = {'entry':{'module':'/assets/entry.client-CwmCrAfx.js','imports':['/assets/components-BQmMnQ0y.js'],'css':[]},'routes':{'root':{'id':'root','parentId':undefined,'path':'','index':undefined,'caseSensitive':undefined,'hasAction':false,'hasLoader':false,'hasClientAction':false,'hasClientLoader':false,'hasErrorBoundary':false,'module':'/assets/root-B6brN3WA.js','imports':['/assets/components-BQmMnQ0y.js'],'css':['/assets/root-CQAT2Ijf.css']},'routes/_index':{'id':'routes/_index','parentId':'root','path':undefined,'index':true,'caseSensitive':undefined,'hasAction':false,'hasLoader':true,'hasClientAction':false,'hasClientLoader':false,'hasErrorBoundary':false,'module':'/assets/_index-DGIPNdSi.js','imports':['/assets/components-BQmMnQ0y.js'],'css':[]}},'url':'/assets/manifest-980805e3.js','version':'980805e3'};
+
+/**
+       * `mode` is only relevant for the old Remix compiler but
+       * is included here to satisfy the `ServerBuild` typings.
+       */
+      const mode = "production";
+      const assetsBuildDirectory = "build/client";
+      const basename = "/";
+      const future = {"v3_fetcherPersist":true,"v3_relativeSplatPath":true,"v3_throwAbortReason":true,"unstable_singleFetch":false,"unstable_lazyRouteDiscovery":false};
+      const isSpaMode = false;
+      const publicPath = "/";
+      const entry = { module: entryServer };
+      const routes = {
+        "root": {
+          id: "root",
+          parentId: undefined,
+          path: "",
+          index: undefined,
+          caseSensitive: undefined,
+          module: route0
+        },
   "routes/_index": {
-    id: "routes/_index",
-    parentId: "root",
-    path: void 0,
-    index: true,
-    caseSensitive: void 0,
-    module: route1
-  }
-};
-export {
-  serverManifest as assets,
-  assetsBuildDirectory,
-  basename,
-  entry,
-  future,
-  isSpaMode,
-  mode,
-  publicPath,
-  routes
-};
+          id: "routes/_index",
+          parentId: "root",
+          path: undefined,
+          index: true,
+          caseSensitive: undefined,
+          module: route1
+        }
+      };
+
+export { serverManifest as assets, assetsBuildDirectory, basename, entry, future, isSpaMode, mode, publicPath, routes };
