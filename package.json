@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "tsx server/index.ts",
+    "dev": "vite",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production node ./build/server/index.js",
     "typecheck": "tsc"
@@ -20,7 +20,8 @@
     "isbot": "^4.1.0",
     "morgan": "^1.10.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix-create-express-app": "^0.4.5"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.11.2",
@@ -32,7 +33,6 @@
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.19",
-    "esbuild": "^0.23.1",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",
@@ -40,6 +40,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.38",
+    "remix-express-dev-server": "^0.4.4",
     "tailwindcss": "^3.4.4",
     "tsx": "^4.19.0",
     "typescript": "^5.1.6",

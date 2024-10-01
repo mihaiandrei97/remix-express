@@ -11,6 +11,9 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import { createExpressApp } from "remix-create-express-app";
+import compression from "compression";
+import morgan from "morgan";
 
 const ABORT_DELAY = 5_000;
 
@@ -138,3 +141,20 @@ function handleBrowserRequest(
     setTimeout(abort, ABORT_DELAY);
   });
 }
+
+export const app = createExpressApp({
+  configure: app => {
+    // setup additional express middleware here
+    app.use(compression())
+    app.disable('x-powered-by')
+    app.use(morgan('tiny'))
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getLoadContext: async (req, res) => {
+    // custom load context should match the AppLoadContext interface defined above
+    return { 
+        'testing': 'variable from expressj',
+        'another': 'variable from express'
+     }
+  },
+})
